@@ -1,0 +1,42 @@
+name: CD/CI Workflow
+
+on: [push]
+
+jobs:
+  check:
+    name: Check
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v1
+      - name: Use Node 12.13 LTS
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.13
+      - name: Install NPM dependencies
+        run: npm ci
+      # - name: Audit with NPM
+      #   run: npm audit
+      - name: Lint with ESLint
+        run: npm run lint
+
+  deploy:
+    if: github.ref == 'refs/heads/master'
+    name: Deploy
+    needs: check
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v1
+      - name: Use Node 12.13 LTS
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.13
+      - name: Install NPM dependencies
+        run: npm ci
+      - name: Build
+        run: npm run build
+      - name: Firebase GitHub Action
+        uses: pizzafox/firebase-action@1.0.7
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+        with:
+          args: deploy
