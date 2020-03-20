@@ -34,6 +34,8 @@ jobs:
         run: npm ci
       - name: Build
         run: npm run build
+        env:
+          VUE_APP_FIREBASE_KEY: ${{ secrets.VUE_APP_FIREBASE_KEY }}
       - name: Firebase GitHub Action
         uses: pizzafox/firebase-action@1.0.7
         env:
