@@ -3,7 +3,7 @@
     <div class="flex-column">
       <div class="flex flex-col justify-center items-center my-8">
         <h2 class="text-3xl font-bold text-gray-800 mb-4 font-serif">
-          Covid-19 Journal
+          Covid-19 Tagebuch
         </h2>
         <login-img class="w-3/5 h-auto" />
       </div>

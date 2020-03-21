@@ -2,7 +2,7 @@
   <div class="min-h-screen flex flex-col">
     <div class="px-3 py-2 flex justify-between items-baseline">
       <h2 class="text-xl font-bold text-gray-800">
-        Covid-19 Journal
+        Covid-19 Tagebuch
       </h2>
       <p @click="handleLogout" class="text-gray-600">Logout</p>
     </div>
@@ -13,8 +13,11 @@
     >
       <done-img class="w-3/5 h-auto" />
       <p class="mt-6 text-center text-gray-800">
-        Well done! <br />
-        You have already made a report today.
+        Vielen Dank! <br />
+        Du hast heute alle fragen beantwortet. <br /><br />
+
+        Dein Beitrag hilft dabei Ärzten und Wissenschaftlern das Coronavirus
+        besser zu bekämpfen.
       </p>
     </div>
 
@@ -23,7 +26,16 @@
         <doctors-img class="w-3/5 h-auto align-center" />
       </div>
       <h2 class="text-xl font-serif text-gray-800 mt-5 mb-3">
-        Journal entry for <span>{{ today.toDateString() }}</span
+        Tagebucheintrag für
+
+        <span>{{
+          today.toLocaleDateString("de-DE", {
+            weekday: "long",
+            year: "numeric",
+            month: "long",
+            day: "numeric"
+          })
+        }}</span
         >:
       </h2>
       <div>
@@ -61,7 +73,7 @@ export default {
 
   data() {
     return {
-      alreadyReported: true,
+      alreadyReported: false,
       user: null,
       today: new Date(),
       dq: quest,

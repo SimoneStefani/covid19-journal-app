@@ -2,6 +2,7 @@ var dailyQuestions = new Map();
 
 dailyQuestions.set("how_are_you_doing", {
   question: "Wie geht es dir heute?",
+  type: "single-answer",
   answers: [
     {
       answer: "Mir geht es sehr gut :)",
@@ -17,6 +18,7 @@ dailyQuestions.set("how_are_you_doing", {
 });
 
 dailyQuestions.set("doing_fine", {
+  type: "end",
   question:
     "Super! Hab einen schönen Tag. Schaue doch bitte morgen nochmal bei mir vorbei.",
   answers: []
@@ -25,6 +27,7 @@ dailyQuestions.set("doing_fine", {
 dailyQuestions.set("not_doing_fine", {
   question:
     "Oh, das ist schade. \n Geht es dir einfsch nicht gut oder hast du sogar richtige Symptome?",
+  type: "single-answer",
   answers: [
     {
       answer: "Ich habe Symptome",
