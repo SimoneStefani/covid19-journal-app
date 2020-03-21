@@ -16,9 +16,9 @@ firebase.initializeApp(firebaseConfig);
 
 const db = firebase.firestore();
 
-export const createUser = () => {
+export const createUser = uid => {
   db.collection("users")
-    .doc(firebase.auth().currentUser.uid)
+    .doc(uid)
     .set({
       profile: {},
       journal: {}
@@ -30,8 +30,7 @@ export const createUser = () => {
 export const addJournalEntry = entry => {
   const userRef = db.collection("users").doc(firebase.auth().currentUser.uid);
 
-  var today = new Date();
-  today = today.toISOString();
+  var today = new Date().getTime() / 1000;
 
   userRef
     .update({ [`journal.${today}`]: entry })
@@ -40,48 +39,3 @@ export const addJournalEntry = entry => {
 };
 
 export default firebase;
-
-/*
-{
-  users: {
-    FAXdNAn1x1fiaVeUWo7MSljp2P72: {
-      profile: {
-        testedPositiveOn: 2020-03-12
-        age: 42,
-        gender: male
-      },
-      journal: {
-        2020-03-06: {
-          question1: answer1,
-          question2: answer2
-        },
-        2020-03-07: {
-          question1: answer1,
-          question2: answer2
-        },
-        2020-03-08: {
-          question1: answer1,
-          question2: answer2
-        }
-      }
-    },
-    K6inrKTO1XNrV4KsdD5eP7e8lM63: {
-      profile: {
-        testedPositiveOn: undefined
-        age: 74,
-        gender: male
-      },
-      journal: {
-        2020-03-02: {
-          question1: answer1,
-          question2: answer2
-        },
-        2020-03-03: {
-          question1: answer1,
-          question2: answer2
-        }
-      }
-    }
-  }
-}
-*/

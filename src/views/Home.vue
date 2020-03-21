@@ -2,18 +2,25 @@
   <div class="home">
     <h2 v-if="!user">Nobody is authenticated</h2>
     <h2 v-else>Welcome {{ user.email }}</h2>
-    <h3>Today is: {{ today.getDate() + '.' + today.getMonth() + '.' + today.getFullYear() }}</h3>
+    <h3>
+      Today is:
+      {{ today.getDate() + "." + today.getMonth() + "." + today.getFullYear() }}
+    </h3>
 
     <div>
-      <p>{{question_list[current_question_index]}}</p>
-      <input v-model="answer_list[current_question_index]" />
-      <p>Answer: {{ answer_list[current_question_index]}}</p>
+      <p>{{ questions[currentQuestionIndex].q }}</p>
+      <input v-model="questions[currentQuestionIndex].a" />
+      <p>Answer: {{ questions[currentQuestionIndex].a }}</p>
     </div>
-    <button v-if="current_question_index > 0" @click="current_question_index--">Previous</button>
+    <button v-if="currentQuestionIndex > 0" @click="currentQuestionIndex--">
+      Previous
+    </button>
     <button
-      v-if="current_question_index < question_list.length - 1"
-      @click="current_question_index++"
-    >Next</button>
+      v-if="currentQuestionIndex < questions.length - 1"
+      @click="currentQuestionIndex++"
+    >
+      Next
+    </button>
     <div v-else>
       <button @click="handleSubmit">Submit</button>
     </div>
@@ -25,7 +32,7 @@
 </template>
 
 <script>
-import firebase from "@/firebase.js";
+import firebase, { addJournalEntry } from "@/firebase.js";
 
 export default {
   name: "Home",
@@ -34,13 +41,12 @@ export default {
     return {
       user: null,
       today: new Date(),
-      question_list: [
-        "Are you feeling sick?",
-        "Do you have a fever?",
-        "Do you have trouble breathing?"
+      questions: [
+        { q: "Are you feeling sick?", a: undefined },
+        { q: "Do you have a fever?", a: undefined },
+        { q: "Do you have trouble breathing?", a: undefined }
       ],
-      answer_list: [],
-      current_question_index: 0
+      currentQuestionIndex: 0
     };
   },
 
@@ -50,10 +56,7 @@ export default {
 
   methods: {
     handleSubmit() {
-      this.question_list.forEach((element, i) => {
-        console.log(element);
-        console.log(this.answer_list[i] + "\n");
-      });
+      addJournalEntry(this.questions);
     },
 
     handleLogout() {

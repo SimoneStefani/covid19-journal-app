@@ -12,7 +12,6 @@ export default {
 
   beforeCreate() {
     firebase.auth().onAuthStateChanged(user => {
-      console.log("foo" + firebase.auth().currentUser.uid);
       user
         ? this.$router.push({ name: "Home" })
         : this.$router.push({ name: "Login" });
