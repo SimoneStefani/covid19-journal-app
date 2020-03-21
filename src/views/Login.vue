@@ -1,9 +1,18 @@
 <template>
-  <div class="flex justify-center align-center">
+  <div class="min-h-screen flex flex-col justify-center container mx-auto px-4">
     <div class="flex-column">
+      <div class="flex flex-col justify-center items-center my-8">
+        <h2 class="text-3xl font-bold text-gray-800 mb-4 font-serif">
+          Covid-19 Journal
+        </h2>
+        <login-img class="w-3/5 h-auto" />
+      </div>
+
       <div v-if="registerMode">
+        <h3 class="mt-5 mb-2">
+          <i>Create an account to track bla bla bla</i>
+        </h3>
         <label class="block mb-5">
-          <span class="text-gray-700">Name</span>
           <input
             class="form-input mt-1 block w-full"
             v-model="register.name"
@@ -12,7 +21,6 @@
         </label>
 
         <label class="block mb-5">
-          <span class="text-gray-700">Email</span>
           <input
             class="form-input mt-1 block w-full"
             v-model="register.email"
@@ -21,7 +29,6 @@
         </label>
 
         <label class="block mb-5">
-          <span class="text-gray-700">Passwort</span>
           <input
             class="form-input mt-1 block w-full"
             v-model="register.password"
@@ -30,7 +37,7 @@
           />
         </label>
         <button
-          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          class="bg-yellow-600 text-white font-bold py-2 px-4 rounded w-full"
           @click="handleRegister"
         >
           Registrieren
@@ -38,8 +45,10 @@
       </div>
 
       <div v-else>
+        <h3 class="mt-6 mb-3">
+          <i>Login to track bla bla bla</i>
+        </h3>
         <label class="block mb-5">
-          <span class="text-gray-700">Email</span>
           <input
             class="form-input mt-1 block w-full"
             v-model="login.email"
@@ -48,7 +57,6 @@
         </label>
 
         <label class="block mb-5">
-          <span class="text-gray-700">Passwort</span>
           <input
             class="form-input mt-1 block w-full"
             v-model="login.password"
@@ -58,7 +66,7 @@
           />
         </label>
         <button
-          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          class="bg-yellow-600 text-white font-bold py-2 px-4 rounded w-full"
           @click="handleLogin"
         >
           Login
@@ -68,7 +76,7 @@
       <div class="flex justify-center mt-10">
         <a
           href="#"
-          class="no-underline text-blue-500"
+          class="no-underline text-yellow-600"
           @click="registerMode = !registerMode"
           >{{ registerMode ? "Zum login" : "Registriere dich jetzt!" }}</a
         >
@@ -78,10 +86,15 @@
 </template>
 
 <script>
+import LoginImg from "@/components/LoginImg.vue";
 import firebase, { createUser } from "@/firebase.js";
 
 export default {
   name: "Login",
+
+  components: {
+    LoginImg
+  },
 
   data() {
     return {
