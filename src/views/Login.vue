@@ -46,7 +46,10 @@
 
       <div v-else>
         <h3 class="mt-6 mb-3">
-          <i>Login to track bla bla bla</i>
+          <p>
+            <b>Jeder Beitrag zählt!</b>
+            <br />Mit deiner Hilfe besiegen wir das Coronavirus!
+          </p>
         </h3>
         <label class="block mb-5">
           <input

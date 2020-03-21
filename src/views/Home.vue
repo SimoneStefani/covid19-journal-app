@@ -13,11 +13,15 @@
     >
       <done-img class="w-3/5 h-auto" />
       <p class="mt-6 text-center text-gray-800">
-        Vielen Dank! <br />
-        Du hast heute alle fragen beantwortet. <br /><br />
+        Du hast deinen heutigen Beitrag geleistet. Vielen Dank! <br /><br />
+        Mit deiner Hilfe bekämpfen wir das Coronavirus. <br />
 
-        Dein Beitrag hilft dabei Ärzten und Wissenschaftlern das Coronavirus
-        besser zu bekämpfen.
+        Ärzte und Wissenschaftler können dank Menschen wie dir mehr über das
+        Virus lernen und es somit schneller besiegen. Jeder Beitrag zählt.
+
+        <br /><br />
+        Teile diese App mit deinen Freunden aus Facebook
+        <br />
       </p>
     </div>
 

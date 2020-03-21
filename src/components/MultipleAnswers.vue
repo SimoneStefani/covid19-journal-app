@@ -10,7 +10,12 @@
       {{ a.answer }}
     </button>
 
-    <button @click="handleSubmit">Next</button>
+    <button
+      class="bg-gray-400 text-black font-bold py-2 px-4 mt-5 rounded w-full"
+      @click="handleSubmit"
+    >
+      Weiter
+    </button>
   </div>
 </template>
 
@@ -52,3 +57,9 @@ export default {
   }
 };
 </script>
+
+<style lang="css">
+.button:focus {
+  outline: none;
+}
+</style>
