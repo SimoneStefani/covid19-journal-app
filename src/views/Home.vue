@@ -79,7 +79,7 @@
 </template>
 
 <script>
-import firebase, { addJournalEntry } from "@/firebase.js";
+import firebase, { addJournalEntry, hasSubmitted } from "@/firebase.js";
 import DoneImg from "@/components/DoneImg.vue";
 import DoctorsImg from "@/components/DoctorsImg.vue";
 import MultipleAnswers from "@/components/MultipleAnswers.vue";
@@ -101,6 +101,7 @@ export default {
       today: new Date(),
       dq: quest,
       journalEntry: {
+        date: this.getFormattedDate(),
         // location: undefined,
         hasCough: false,
         hasFever: false,
@@ -118,7 +119,11 @@ export default {
   },
 
   created() {
-    firebase.auth().onAuthStateChanged(user => (this.user = user));
+    firebase.auth().onAuthStateChanged(user => {
+      this.user = user;
+      if (user) hasSubmitted().then(res => (this.alreadyReported = res));
+    });
+
     this.currentQuestion = this.dq.get("how_are_you_doing");
   },
 
@@ -138,6 +143,11 @@ export default {
         .signOut()
         .then(() => console.log("Logout successful"))
         .catch(err => console.error(err));
+    },
+
+    getFormattedDate() {
+      const today = new Date();
+      return today.toISOString().split("T")[0];
     }
   }
 };
