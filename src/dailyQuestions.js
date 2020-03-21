@@ -12,57 +12,58 @@ dailyQuestions.set("how_are_you_doing", {
     },
     {
       answer: "Nicht sehr gut :(",
-      next: "not_doing_fine_1",
+      next: "symptome_questions_1",
       resolve: () => {}
     }
   ]
 });
 
-dailyQuestions.set("not_doing_fine_1", {
+dailyQuestions.set("symptome_questions_1", {
   question: "Oh, das ist schade. Hast du eines der folgenden Symptome?",
   type: "multiple-answers",
   answers: [
     {
       answer: "Ich habe Husten",
-      next: "not_doing_fine_2",
+      next: "weakness_question",
       resolve: report => {
         report.hasCough = true;
       }
     },
     {
       answer: "Ich habe Fieber",
-      next: "not_doing_fine_2",
+      next: "weakness_question",
       resolve: report => {
         report.hasFever = true;
       }
     },
     {
       answer: "Ich habe Kopfschmerzen",
-      next: "not_doing_fine_2",
+      next: "weakness_question",
       resolve: report => {
         report.hasHeadAche = true;
       }
     },
     {
       answer: "Keines davon",
-      next: "not_doing_fine_2",
+      next: "weakness_question",
       resolve: () => {}
     }
   ]
 });
 
-dailyQuestions.set("not_doing_fine_2", {
-  question:
-    "Leidest du unter chronischen Krankheiten? (Diabetes, Herzkrankheite etc.)",
+dailyQuestions.set("weakness_question", {
+  question: "Fühlst du dich schwach und/oder schlapp?",
   type: "single-answer",
   answers: [
     {
-      answer: "Ja, ich leider unter chronischen Krankhenheiten.",
+      answer: "Ja, leider. :(",
       next: "doing_fine",
-      resolve: () => {}
+      resolve: journal => {
+        journal.feelsWeak = true;
+      }
     },
     {
-      answer: "Nein, ich bin sonst gesund.",
+      answer: "Nein, ich bin fit.",
       next: "doing_fine",
       resolve: () => {}
     }
@@ -72,7 +73,7 @@ dailyQuestions.set("not_doing_fine_2", {
 dailyQuestions.set("doing_fine", {
   type: "end",
   question:
-    "Super! Hab einen schönen Tag. Schaue doch bitte morgen nochmal bei mir vorbei.",
+    "Danke für deine Zeit! Hab einen schönen Tag und schaue doch bitte morgen nochmal bei mir vorbei.",
   answers: []
 });
 
