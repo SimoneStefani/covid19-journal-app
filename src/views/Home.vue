@@ -42,16 +42,33 @@
         <h3 class="font-bold text-gray-900">
           {{ currentQuestion.question }}
         </h3>
-        <div v-if="currentQuestion.answers[0]" class="flex flex-wrap">
+        <div
+          v-if="
+            currentQuestion.answers[0] &&
+              (currentQuestion.type == 'single-answer' ||
+                currentQuestion.type == 'end')
+          "
+          class="flex flex-wrap"
+        >
           <button
             v-for="a in currentQuestion.answers"
             :key="a.answer"
-            @click="handleAnswerSelected(a)"
+            @click="handleAnswerSelected([a])"
             class="bg-orange-300 px-2 py-1 my-1 mx-2 rounded shadow text-yellow-900"
           >
             {{ a.answer }}
           </button>
         </div>
+
+        <multiple-answers
+          @next="answers => handleAnswerSelected(answers)"
+          :answers="currentQuestion.answers"
+          v-if="
+            currentQuestion.answers[0] &&
+              currentQuestion.type == 'multiple-answers'
+          "
+          class="flex flex-wrap"
+        />
       </div>
     </div>
   </div>
@@ -61,6 +78,7 @@
 import firebase, { addJournalEntry } from "@/firebase.js";
 import DoneImg from "@/components/DoneImg.vue";
 import DoctorsImg from "@/components/DoctorsImg.vue";
+import MultipleAnswers from "@/components/MultipleAnswers.vue";
 import quest from "@/dailyQuestions.js";
 
 export default {
@@ -68,7 +86,8 @@ export default {
 
   components: {
     DoneImg,
-    DoctorsImg
+    DoctorsImg,
+    MultipleAnswers
   },
 
   data() {
@@ -100,9 +119,9 @@ export default {
   },
 
   methods: {
-    handleAnswerSelected(answer) {
-      answer.resolve(this.journalEntry);
-      this.currentQuestion = this.dq.get(answer.next);
+    handleAnswerSelected(answers) {
+      answers.forEach(a => a.resolve(this.journalEntry));
+      this.currentQuestion = this.dq.get(answers[0].next);
 
       if (!this.currentQuestion.answers[0]) {
         addJournalEntry(this.journalEntry);
