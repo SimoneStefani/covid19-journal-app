@@ -3,6 +3,7 @@ var dailyQuestions = new Map();
 dailyQuestions.set("how_are_you_doing", {
   question: "Wie geht es dir heute?",
   type: "single-answer",
+  next: null,
   answers: [
     {
       answer: "Mir geht es sehr gut :)",
@@ -11,7 +12,58 @@ dailyQuestions.set("how_are_you_doing", {
     },
     {
       answer: "Nicht sehr gut :(",
-      next: "not_doing_fine",
+      next: "not_doing_fine_1",
+      resolve: () => {}
+    }
+  ]
+});
+
+dailyQuestions.set("not_doing_fine_1", {
+  question: "Oh, das ist schade. Hast du eines der folgenden Symptome?",
+  type: "multiple-answers",
+  answers: [
+    {
+      answer: "Ich habe Husten",
+      next: "not_doing_fine_2",
+      resolve: report => {
+        report.hasCough = true;
+      }
+    },
+    {
+      answer: "Ich habe Fieber",
+      next: "not_doing_fine_2",
+      resolve: report => {
+        report.hasFever = true;
+      }
+    },
+    {
+      answer: "Ich habe Kopfschmerzen",
+      next: "not_doing_fine_2",
+      resolve: report => {
+        report.hasHeadAche = true;
+      }
+    },
+    {
+      answer: "Keines davon",
+      next: "not_doing_fine_2",
+      resolve: () => {}
+    }
+  ]
+});
+
+dailyQuestions.set("not_doing_fine_2", {
+  question:
+    "Leidest du unter chronischen Krankheiten? (Diabetes, Herzkrankheite etc.)",
+  type: "single-answer",
+  answers: [
+    {
+      answer: "Ja, ich leider unter chronischen Krankhenheiten.",
+      next: "doing_fine",
+      resolve: () => {}
+    },
+    {
+      answer: "Nein, ich bin sonst gesund.",
+      next: "doing_fine",
       resolve: () => {}
     }
   ]
@@ -21,62 +73,6 @@ dailyQuestions.set("doing_fine", {
   type: "end",
   question:
     "Super! Hab einen schönen Tag. Schaue doch bitte morgen nochmal bei mir vorbei.",
-  answers: []
-});
-
-dailyQuestions.set("not_doing_fine", {
-  question:
-    "Oh, das ist schade. \n Geht es dir einfsch nicht gut oder hast du sogar richtige Symptome?",
-  type: "single-answer",
-  answers: [
-    {
-      answer: "Ich habe Symptome",
-      next: "has_clear_symptoms",
-      resolve: () => {}
-    },
-    {
-      answer: "Mir geht es einfach nicht so gut.",
-      next: "mild_symptoms",
-      resolve: () => {}
-    }
-  ]
-});
-
-dailyQuestions.set("has_clear_symptoms", {
-  question: "Hast du eines der folgenden Symptome?",
-  answers: [
-    {
-      answer: "Atemprobleme",
-      next: "symptoms_reported",
-      resolve: report => (report.hasBreathingProblems = true)
-    },
-    {
-      answer: "Keines davon",
-      next: "symptoms_reported",
-      resolve: () => {}
-    }
-  ]
-});
-
-dailyQuestions.set("mild_symptoms", {
-  question: "Spührst du eines der folgenden symptome?",
-  answers: [
-    {
-      answer: "Allgemeine schwäche",
-      next: "symptoms_reported",
-      resolve: report => (report.feelsWeak = true)
-    },
-    {
-      answer: "Keines davon.",
-      next: "symptoms_reported",
-      resolve: report => (report.feelsWeak = false)
-    }
-  ]
-});
-
-dailyQuestions.set("symptoms_reported", {
-  question:
-    "Danke, dass du uns dabei hilfst dir zu helfen. Zusammen können wir das Coronavirus am besten bekäpfen.",
   answers: []
 });
 
