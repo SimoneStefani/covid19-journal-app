@@ -39,4 +39,24 @@ export const addJournalEntry = entry => {
     .catch(error => console.error("Error updating document: ", error));
 };
 
+export const hasSubmitted = () => {
+  const userRef = db.collection("users").doc(firebase.auth().currentUser.uid);
+
+  return userRef
+    .get()
+    .then(user => {
+      if (user.exists) {
+        console.log(user.data());
+        var today = new Date();
+        today = today.toISOString().split("T")[0];
+        var journal = user.data().journal;
+
+        return Object.values(journal).some(e => e.date == today);
+      } else {
+        console.log("No such document!");
+      }
+    })
+    .catch(error => console.error("Error getting document:", error));
+};
+
 export default firebase;
