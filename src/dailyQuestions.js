@@ -1,15 +1,15 @@
 var dailyQuestions = new Map();
 
 dailyQuestions.set("how_are_you_doing", {
-  question: "How are you doing today?",
+  question: "Wie geht es dir heute?",
   answers: [
     {
-      answer: "I am doing perfectly well!",
+      answer: "Mir geht es sehr gut :)",
       next: "doing_fine",
       resolve: () => {}
     },
     {
-      answer: "I am not doing very well!",
+      answer: "Nicht sehr gut :(",
       next: "not_doing_fine",
       resolve: () => {}
     }
@@ -17,36 +17,38 @@ dailyQuestions.set("how_are_you_doing", {
 });
 
 dailyQuestions.set("doing_fine", {
-  question: "Great to hear! In this case there is nothing more to say!",
+  question:
+    "Super! Hab einen schönen Tag. Schaue doch bitte morgen nochmal bei mir vorbei.",
   answers: []
 });
 
 dailyQuestions.set("not_doing_fine", {
-  question: "Ohi! Do you have strong symptoms or simply feel unwell?",
+  question:
+    "Oh, das ist schade. \n Geht es dir einfsch nicht gut oder hast du sogar richtige Symptome?",
   answers: [
     {
-      answer: "I have clear symptoms...",
-      next: "clear_symptoms",
+      answer: "Ich habe Symptome",
+      next: "has_clear_symptoms",
       resolve: () => {}
     },
     {
-      answer: "Just not feel at my best!",
+      answer: "Mir geht es einfach nicht so gut.",
       next: "mild_symptoms",
       resolve: () => {}
     }
   ]
 });
 
-dailyQuestions.set("clear_symptoms", {
-  question: "Did you get any of these symptoms?",
+dailyQuestions.set("has_clear_symptoms", {
+  question: "Hast du eines der folgenden Symptome?",
   answers: [
     {
-      answer: "Breathing problems",
+      answer: "Atemprobleme",
       next: "symptoms_reported",
       resolve: report => (report.hasBreathingProblems = true)
     },
     {
-      answer: "None of these...",
+      answer: "Keines davon",
       next: "symptoms_reported",
       resolve: () => {}
     }
@@ -54,24 +56,24 @@ dailyQuestions.set("clear_symptoms", {
 });
 
 dailyQuestions.set("mild_symptoms", {
-  question: "Did you get any of these symptoms?",
+  question: "Spührst du eines der folgenden symptome?",
   answers: [
     {
-      answer: "General weakness",
+      answer: "Allgemeine schwäche",
       next: "symptoms_reported",
       resolve: report => (report.feelsWeak = true)
     },
     {
-      answer: "None of these...",
+      answer: "Keines davon.",
       next: "symptoms_reported",
-      resolve: () => {}
+      resolve: report => (report.feelsWeak = false)
     }
   ]
 });
 
 dailyQuestions.set("symptoms_reported", {
   question:
-    "Thank you for letting us know about your symptoms. We'll get in touch with you if we believe you'll require further care",
+    "Danke, dass du uns dabei hilfst dir zu helfen. Zusammen können wir das Coronavirus am besten bekäpfen.",
   answers: []
 });
 
