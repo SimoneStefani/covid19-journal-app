@@ -9,7 +9,7 @@ dailyQuestions.set("how_are_you_doing", {
       resolve: () => {}
     },
     {
-      answer: "I am doing perfectly well!",
+      answer: "I am not doing very well!",
       next: "not_doing_fine",
       resolve: () => {}
     }
