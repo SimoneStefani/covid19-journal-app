@@ -3,7 +3,7 @@
     <div class="flex-column">
       <div class="flex flex-col justify-center items-center my-8">
         <h2 class="text-3xl font-bold text-gray-800 mb-4 font-serif">
-          Covid-19 Journal
+          Covid-19 Tagebuch
         </h2>
         <login-img class="w-3/5 h-auto" />
       </div>
@@ -46,7 +46,10 @@
 
       <div v-else>
         <h3 class="mt-6 mb-3">
-          <i>Login to track bla bla bla</i>
+          <p>
+            <b>Jeder Beitrag zählt!</b>
+            <br />Mit deiner Hilfe besiegen wir das Coronavirus!
+          </p>
         </h3>
         <label class="block mb-5">
           <input
