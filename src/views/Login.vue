@@ -1,17 +1,79 @@
 <template>
-  <div class="home">
-    <h3>Register</h3>
-    <input v-model="register.name" placeholder="name" />
-    <input v-model="register.email" placeholder="email" />
-    <input v-model="register.password" placeholder="password" type="password" />
-    <button @click="handleRegister">Register</button>
+  <div class="flex justify-center align-center">
+    <div class="flex-column">
+      <div v-if="registerMode">
+        <label class="block mb-5">
+          <span class="text-gray-700">Name</span>
+          <input
+            class="form-input mt-1 block w-full"
+            v-model="register.name"
+            placeholder="Name"
+          />
+        </label>
 
-    <hr />
+        <label class="block mb-5">
+          <span class="text-gray-700">Email</span>
+          <input
+            class="form-input mt-1 block w-full"
+            v-model="register.email"
+            placeholder="Email"
+          />
+        </label>
 
-    <h3>Login</h3>
-    <input v-model="login.email" placeholder="email" />
-    <input v-model="login.password" placeholder="password" type="password" />
-    <button @click="handleLogin">Login</button>
+        <label class="block mb-5">
+          <span class="text-gray-700">Passwort</span>
+          <input
+            class="form-input mt-1 block w-full"
+            v-model="register.password"
+            placeholder="Passwort"
+            v-on:keyup.enter="handleRegister"
+          />
+        </label>
+        <button
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          @click="handleRegister"
+        >
+          Registrieren
+        </button>
+      </div>
+
+      <div v-else>
+        <label class="block mb-5">
+          <span class="text-gray-700">Email</span>
+          <input
+            class="form-input mt-1 block w-full"
+            v-model="login.email"
+            placeholder="Email"
+          />
+        </label>
+
+        <label class="block mb-5">
+          <span class="text-gray-700">Passwort</span>
+          <input
+            class="form-input mt-1 block w-full"
+            v-model="login.password"
+            type="password"
+            placeholder="Passwort"
+            v-on:keyup.enter="handleLogin"
+          />
+        </label>
+        <button
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          @click="handleLogin"
+        >
+          Login
+        </button>
+      </div>
+
+      <div class="flex justify-center mt-10">
+        <a
+          href="#"
+          class="no-underline text-blue-500"
+          @click="registerMode = !registerMode"
+          >{{ registerMode ? "Zum login" : "Registriere dich jetzt!" }}</a
+        >
+      </div>
+    </div>
   </div>
 </template>
 
@@ -23,6 +85,7 @@ export default {
 
   data() {
     return {
+      registerMode: false,
       register: {
         name: "",
         email: "",

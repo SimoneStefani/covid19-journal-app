@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div>
     <h2 v-if="!user">Nobody is authenticated</h2>
     <h2 v-else>Welcome {{ user.email }}</h2>
     <h3>

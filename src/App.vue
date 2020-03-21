@@ -1,6 +1,15 @@
 <template>
-  <div id="app">
-    <router-view />
+  <div id="app" class="flex justify-center h-screen p-10 bg-gray-300">
+    <div
+      class="h-auto max-w-md px-20 py-10 rounded-lg overflow-hidden shadow-lg bg-white"
+    >
+      <div class="mb-10">
+        <h1 class="flex justify-center">
+          COVID-19 Journal
+        </h1>
+      </div>
+      <router-view />
+    </div>
   </div>
 </template>
 
@@ -19,26 +28,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
-</style>
