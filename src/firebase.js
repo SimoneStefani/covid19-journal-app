@@ -30,7 +30,8 @@ export const createUser = uid => {
 export const addJournalEntry = entry => {
   const userRef = db.collection("users").doc(firebase.auth().currentUser.uid);
 
-  var today = new Date().getTime() / 1000;
+  const now = new Date();
+  var today = Math.round(now.getTime() / 1000);
 
   userRef
     .update({ [`journal.${today}`]: entry })

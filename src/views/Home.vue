@@ -7,22 +7,15 @@
       {{ today.getDate() + "." + today.getMonth() + "." + today.getFullYear() }}
     </h3>
 
-    <div>
-      <p>{{ questions[currentQuestionIndex].q }}</p>
-      <input v-model="questions[currentQuestionIndex].a" />
-      <p>Answer: {{ questions[currentQuestionIndex].a }}</p>
-    </div>
-    <button v-if="currentQuestionIndex > 0" @click="currentQuestionIndex--">
-      Previous
-    </button>
-    <button
-      v-if="currentQuestionIndex < questions.length - 1"
-      @click="currentQuestionIndex++"
-    >
-      Next
-    </button>
-    <div v-else>
-      <button @click="handleSubmit">Submit</button>
+    <h3>{{ currentQuestion.question }}</h3>
+    <div v-if="currentQuestion.answers[0]">
+      <button
+        v-for="a in currentQuestion.answers"
+        :key="a.answer"
+        @click="handleAnswerSelected(a)"
+      >
+        {{ a.answer }}
+      </button>
     </div>
 
     <div v-if="user" style="margin-top: 50px">
@@ -33,6 +26,7 @@
 
 <script>
 import firebase, { addJournalEntry } from "@/firebase.js";
+import quest from "@/dailyQuestions.js";
 
 export default {
   name: "Home",
@@ -41,22 +35,37 @@ export default {
     return {
       user: null,
       today: new Date(),
-      questions: [
-        { q: "Are you feeling sick?", a: undefined },
-        { q: "Do you have a fever?", a: undefined },
-        { q: "Do you have trouble breathing?", a: undefined }
-      ],
-      currentQuestionIndex: 0
+      dq: quest,
+      journalEntry: {
+        // location: undefined,
+        hasCough: false,
+        hasFever: false,
+        hasChills: false,
+        feelsWeak: false,
+        hasLimbPain: false,
+        hasSniff: false,
+        hasDiarrhea: false,
+        hasSoreThroat: false,
+        hasHeadache: false,
+        hasBreathingProblems: false
+      },
+      currentQuestion: undefined
     };
   },
 
   created() {
     firebase.auth().onAuthStateChanged(user => (this.user = user));
+    this.currentQuestion = this.dq.get("how_are_you_doing");
   },
 
   methods: {
-    handleSubmit() {
-      addJournalEntry(this.questions);
+    handleAnswerSelected(answer) {
+      answer.resolve(this.journalEntry);
+      this.currentQuestion = this.dq.get(answer.next);
+
+      if (!this.currentQuestion.answers[0]) {
+        addJournalEntry(this.journalEntry);
+      }
     },
 
     handleLogout() {
