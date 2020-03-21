@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import firebase from "@/firebase.js";
+import firebase, { createUser } from "@/firebase.js";
 
 export default {
   name: "Login",
@@ -44,6 +44,7 @@ export default {
           this.register.email,
           this.register.password
         )
+        .then(({ user }) => createUser(user.uid))
         .catch(err => console.error(err));
     },
 

@@ -1,5 +1,6 @@
 import * as firebase from "firebase/app";
 import "firebase/auth";
+import "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: process.env.VUE_APP_FIREBASE_KEY,
@@ -12,5 +13,29 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
+
+const db = firebase.firestore();
+
+export const createUser = uid => {
+  db.collection("users")
+    .doc(uid)
+    .set({
+      profile: {},
+      journal: {}
+    })
+    .then(() => console.log("Document successfully written!"))
+    .catch(error => console.error("Error writing document: ", error));
+};
+
+export const addJournalEntry = entry => {
+  const userRef = db.collection("users").doc(firebase.auth().currentUser.uid);
+
+  var today = new Date().getTime() / 1000;
+
+  userRef
+    .update({ [`journal.${today}`]: entry })
+    .then(() => console.log("Document successfully updated!"))
+    .catch(error => console.error("Error updating document: ", error));
+};
 
 export default firebase;
