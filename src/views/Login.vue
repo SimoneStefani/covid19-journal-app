@@ -1,14 +1,14 @@
 <template>
   <div class="min-h-screen flex flex-col justify-center container mx-auto px-4">
-    <div class="flex-column">
+    <div class="flex flex-col items-center">
       <div class="flex flex-col justify-center items-center my-8">
         <h2 class="text-3xl font-bold text-gray-800 mb-4 font-serif">
           Covid-19 Tagebuch
         </h2>
-        <login-img class="w-3/5 h-auto" />
+        <login-img class="w-3/5 md:w-64 h-auto" />
       </div>
 
-      <div v-if="registerMode">
+      <div v-if="registerMode" class="w-full md:w-2/3 lg:w-1/3">
         <h3 class="mt-5 mb-2">
           <p>Erstelle deinen Account</p>
         </h3>
@@ -45,7 +45,7 @@
         </button>
       </div>
 
-      <div v-else>
+      <div v-else class="w-full md:w-2/3 lg:w-1/3">
         <h3 class="mt-6 mb-3">
           <p>
             <b>Jeder Beitrag zählt!</b>
@@ -131,6 +131,7 @@ export default {
           this.register.password
         )
         .then(({ user }) => createUser(user.uid, this.register.name))
+        .then(() => this.$router.push({ name: "Home" }))
         .catch(err => console.error(err));
     },
 
@@ -138,6 +139,7 @@ export default {
       firebase
         .auth()
         .signInWithEmailAndPassword(this.login.email, this.login.password)
+        .then(() => this.$router.push({ name: "Home" }))
         .catch(err => console.error(err));
     }
   }

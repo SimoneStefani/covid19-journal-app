@@ -13,7 +13,7 @@
       v-if="completedProfile && alreadyReported"
       class="flex-1 flex flex-col justify-center items-center container mx-auto px-4"
     >
-      <done-img class="w-3/5 h-auto" />
+      <done-img class="w-3/5 md:w-64 h-auto" />
       <p class="mt-6 text-center text-gray-800">
         Du hast deinen heutigen Beitrag geleistet. Vielen Dank! <br /><br />
         Mit deiner Hilfe bekämpfen wir das Coronavirus. <br />
@@ -51,7 +51,7 @@ import firebase, {
   getProfile
 } from "@/firebase.js";
 import DoneImg from "@/components/DoneImg.vue";
-import CreateProfile from "@/components/CreateProfile.vue";
+import createProfile from "@/components/createProfile.vue";
 import DailyJournal from "@/components/DailyJournal.vue";
 
 export default {
@@ -59,7 +59,7 @@ export default {
 
   components: {
     DoneImg,
-    CreateProfile,
+    createProfile,
     DailyJournal
   },
 

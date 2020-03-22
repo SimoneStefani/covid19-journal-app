@@ -17,13 +17,15 @@
       <div id="cal-heatmap" class="flex justify-center items-center"></div>
     </div>
 
-    <div class="flex-1 flex flex-col container mx-auto px-4 my-6">
-      <button
-        @click="handleLogout"
-        class="bg-gray-400 text-black font-bold py-2 px-4 mt-5 rounded w-full"
-      >
-        Logout
-      </button>
+    <div class="flex-1 flex flex-col items-center container mx-auto px-4 my-6">
+      <div class="w-full md:w-2/3 lg:w-1/3">
+        <button
+          @click="handleLogout"
+          class="bg-gray-400 text-black font-bold py-2 px-4 mt-5 rounded w-full"
+        >
+          Logout
+        </button>
+      </div>
     </div>
   </div>
 </template>
