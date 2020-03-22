@@ -34,55 +34,8 @@
       </p>
     </div>
 
-    <div v-else class="flex-1 flex flex-col container mx-auto px-4 mt-24">
-      <div class="w-full flex justify-center">
-        <doctors-img class="w-3/5 h-auto align-center" />
-      </div>
-      <h2 class="text-xl font-serif text-gray-800 mt-5 mb-3">
-        Tagebucheintrag für
-
-        <span>{{
-          today.toLocaleDateString("de-DE", {
-            weekday: "long",
-            year: "numeric",
-            month: "long",
-            day: "numeric"
-          })
-        }}</span
-        >:
-      </h2>
-      <div>
-        <h3 class="font-bold text-gray-900">
-          {{ currentQuestion.question }}
-        </h3>
-        <div
-          v-if="
-            currentQuestion.answers[0] &&
-              (currentQuestion.type == 'single-answer' ||
-                currentQuestion.type == 'end')
-          "
-          class="flex flex-wrap"
-        >
-          <button
-            v-for="a in currentQuestion.answers"
-            :key="a.answer"
-            @click="handleAnswerSelected([a])"
-            class="bg-orange-300 px-2 py-1 my-1 mx-2 rounded shadow text-yellow-900"
-          >
-            {{ a.answer }}
-          </button>
-        </div>
-
-        <multiple-answers
-          @next="answers => handleAnswerSelected(answers)"
-          :answers="currentQuestion.answers"
-          v-if="
-            currentQuestion.answers[0] &&
-              currentQuestion.type == 'multiple-answers'
-          "
-          class="flex flex-wrap"
-        />
-      </div>
+    <div class="flex-1 flex flex-col container mx-auto px-4 mt-24">
+      <daily-journal @submit="entry => handleSubmitDailyJournal(entry)" />
     </div>
   </div>
 </template>
@@ -94,17 +47,14 @@ import firebase, {
   getProfile
 } from "@/firebase.js";
 import DoneImg from "@/components/DoneImg.vue";
-import DoctorsImg from "@/components/DoctorsImg.vue";
-import MultipleAnswers from "@/components/MultipleAnswers.vue";
-import quest from "@/dailyQuestions.js";
+import DailyJournal from "@/components/DailyJournal.vue";
 
 export default {
   name: "Home",
 
   components: {
     DoneImg,
-    DoctorsImg,
-    MultipleAnswers
+    DailyJournal
   },
 
   data() {
@@ -113,21 +63,6 @@ export default {
       alreadyReported: false,
       user: null,
       today: new Date(),
-      dq: quest,
-      journalEntry: {
-        date: this.getFormattedDate(),
-        // location: undefined,
-        hasCough: false,
-        hasFever: false,
-        hasChills: false,
-        feelsWeak: false,
-        hasLimbPain: false,
-        hasSniff: false,
-        hasDiarrhea: false,
-        hasSoreThroat: false,
-        hasHeadache: false,
-        hasBreathingProblems: false
-      },
       currentQuestion: undefined
     };
   },
@@ -141,18 +76,12 @@ export default {
       });
       if (user) hasSubmitted().then(res => (this.alreadyReported = res));
     });
-
-    this.currentQuestion = this.dq.get("how_are_you_doing");
   },
 
   methods: {
-    handleAnswerSelected(answers) {
-      answers.forEach(a => a.resolve(this.journalEntry));
-      this.currentQuestion = this.dq.get(answers[0].next);
-
-      if (!this.currentQuestion.answers[0]) {
-        addJournalEntry(this.journalEntry);
-      }
+    handleSubmitDailyJournal(entry) {
+      console.log(entry);
+      addJournalEntry(entry);
     },
 
     handleLogout() {
@@ -161,11 +90,6 @@ export default {
         .signOut()
         .then(() => console.log("Logout successful"))
         .catch(err => console.error(err));
-    },
-
-    getFormattedDate() {
-      const today = new Date();
-      return today.toISOString().split("T")[0];
     }
   }
 };
