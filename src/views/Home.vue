@@ -104,6 +104,7 @@ export default {
   methods: {
     handleSubmitDailyJournal(entry) {
       addJournalEntry(entry);
+      this.$router.go();
     },
 
     handleSubmitProfile(entry) {
@@ -112,6 +113,7 @@ export default {
         ...entry
       });
       this.completedProfile = true;
+      this.$router.go();
     },
 
     handleLogout() {
