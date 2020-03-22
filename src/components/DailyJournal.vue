@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="w-full flex justify-center">
-      <doctors-img class="w-3/5 h-auto align-center" />
+      <doctors-img class="w-3/5 md:w-64 h-auto align-center" />
     </div>
     <h2 class="text-xl font-serif text-gray-800 mt-5 mb-3">
       Tagebucheintrag für

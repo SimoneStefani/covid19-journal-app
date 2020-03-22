@@ -4,14 +4,16 @@
       <h2 class="text-xl font-bold text-gray-800">
         Covid-19 Tagebuch
       </h2>
-      <p @click="handleLogout" class="text-gray-600">Logout</p>
+      <p @click="() => $router.push({ name: 'Profile' })" class="text-gray-600">
+        Profile
+      </p>
     </div>
 
     <div
       v-if="completedProfile && alreadyReported"
       class="flex-1 flex flex-col justify-center items-center container mx-auto px-4"
     >
-      <done-img class="w-3/5 h-auto" />
+      <done-img class="w-3/5 md:w-64 h-auto" />
       <p class="mt-6 text-center text-gray-800">
         Du hast deinen heutigen Beitrag geleistet. Vielen Dank! <br /><br />
         Mit deiner Hilfe bekämpfen wir das Coronavirus. <br />

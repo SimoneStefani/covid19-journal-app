@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+rect.now {
+  stroke: #ed8936;
+  stroke-width: 2px;
+}
+
+.q1 {
+  background-color: #ecc94b;
+  fill: #ecc94b;
+}
