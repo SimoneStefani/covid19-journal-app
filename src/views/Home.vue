@@ -7,7 +7,7 @@
         Covid-19 Tagebuch
       </h2>
       <p @click="() => $router.push({ name: 'Profile' })" class="text-gray-600">
-        Profile
+        Menu
       </p>
     </div>
 
@@ -17,7 +17,7 @@
     >
       <done-img class="w-3/5 md:w-64 h-auto" />
       <p class="mt-6 text-gray-800">
-        Du hast deinen heutigen Beitrag geleistet. Vielen Dank! <br /><br />
+        Vielen Dank! Du hast deinen heutigen Beitrag geleistet. <br /><br />
         Mit deiner Hilfe bekämpfen wir das Coronavirus. <br />
 
         Ärzte und Wissenschaftler können dank Menschen wie dir mehr über das
@@ -82,7 +82,7 @@ export default {
   data() {
     return {
       profile: null,
-      completedProfile: false,
+      completedProfile: true,
       alreadyReported: false,
       user: null,
       today: new Date(),
@@ -95,6 +95,7 @@ export default {
       this.user = user;
       getProfile().then(userProfile => {
         this.profile = userProfile;
+        console.log(userProfile);
         this.completedProfile = userProfile.completedProfile;
       });
       if (user) hasSubmitted().then(res => (this.alreadyReported = res));
@@ -104,16 +105,17 @@ export default {
   methods: {
     handleSubmitDailyJournal(entry) {
       addJournalEntry(entry);
-      this.$router.go();
+      this.alreadyReported = true;
     },
 
     handleSubmitProfile(entry) {
-      updateProfile({
-        ...this.profile,
-        ...entry
-      });
+      const payload = {
+        ...entry,
+        name: this.profile.name,
+        createdAt: this.profile.createdAt
+      };
+      updateProfile(payload);
       this.completedProfile = true;
-      this.$router.go();
     },
 
     handleLogout() {

@@ -29,7 +29,7 @@ profileQuestions.set("gender_question", {
   answers: [
     {
       answer: "Weiblich",
-      next: "living_condition_question",
+      next: "pregnancy_question",
       resolve: (profile, value = "female") => (profile.gender = value)
     },
     {
@@ -40,36 +40,36 @@ profileQuestions.set("gender_question", {
   ]
 });
 
-profileQuestions.set("living_condition_question", {
-  question: "Wohnst du zur Zeit alleine?",
-  type: "single-answer",
-  answers: [
-    {
-      answer: "Ja, ich wohne alleine.",
-      next: "pregnancy_question",
-      resolve: profile => (profile.livesAlone = true)
-    },
-    {
-      answer: "Nein, ich wohne mit anderen.",
-      next: "pregnancy_question",
-      resolve: profile => (profile.livesAlone = false)
-    }
-  ]
-});
-
 profileQuestions.set("pregnancy_question", {
   question: "Bist du schwanger?",
   type: "single-answer",
   answers: [
     {
       answer: "Ja, ich bin schwanger :)",
-      next: "smoking_question",
+      next: "living_condition_question",
       resolve: profile => (profile.isPregnant = true)
     },
     {
       answer: "Nein.",
-      next: "smoking_question",
+      next: "living_condition_question",
       resolve: profile => (profile.isPregnant = false)
+    }
+  ]
+});
+
+profileQuestions.set("living_condition_question", {
+  question: "Wohnst du zur Zeit alleine?",
+  type: "single-answer",
+  answers: [
+    {
+      answer: "Ja, ich wohne alleine.",
+      next: "smoking_question",
+      resolve: profile => (profile.livesAlone = true)
+    },
+    {
+      answer: "Nein, ich wohne mit anderen.",
+      next: "smoking_question",
+      resolve: profile => (profile.livesAlone = false)
     }
   ]
 });
