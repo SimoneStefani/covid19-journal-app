@@ -57,9 +57,3 @@ export default {
   }
 };
 </script>
-
-<style lang="css">
-.button:focus {
-  outline: none;
-}
-</style>

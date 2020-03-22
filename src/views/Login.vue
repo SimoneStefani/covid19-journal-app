@@ -10,7 +10,7 @@
 
       <div v-if="registerMode">
         <h3 class="mt-5 mb-2">
-          <i>Create an account to track bla bla bla</i>
+          <p>Erstelle deinen Account</p>
         </h3>
         <label class="block mb-5">
           <input
@@ -76,13 +76,19 @@
         </button>
       </div>
 
-      <div class="flex justify-center mt-10">
-        <a
-          href="#"
-          class="no-underline text-yellow-600"
-          @click="registerMode = !registerMode"
-          >{{ registerMode ? "Zum login" : "Registriere dich jetzt!" }}</a
-        >
+      <div class="flex-column justify-center align-center mt-10">
+        <div class="flex justify-center align-center mt-5">
+          <hr class="w-20" />
+          <hr class="w-20" />
+        </div>
+        <div class="flex justify-center align-center mt-5">
+          <a
+            href="#"
+            class="no-underline text-yellow-600"
+            @click="registerMode = !registerMode"
+            >{{ registerMode ? "Zum login" : "Registriere dich jetzt!" }}</a
+          >
+        </div>
       </div>
     </div>
   </div>
@@ -123,7 +129,7 @@ export default {
           this.register.email,
           this.register.password
         )
-        .then(({ user }) => createUser(user.uid))
+        .then(({ user }) => createUser(user.uid, this.register.name))
         .catch(err => console.error(err));
     },
 

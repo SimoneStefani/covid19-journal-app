@@ -16,11 +16,18 @@ firebase.initializeApp(firebaseConfig);
 
 const db = firebase.firestore();
 
-export const createUser = uid => {
+export const createUser = (uid, name) => {
+  var today = new Date();
+  today = today.toISOString().split("T")[0];
+
   db.collection("users")
     .doc(uid)
     .set({
-      profile: {},
+      profile: {
+        createdAt: today,
+        completedProfile: false,
+        name: name
+      },
       journal: {}
     })
     .then(() => console.log("Document successfully written!"))
@@ -35,6 +42,30 @@ export const addJournalEntry = entry => {
 
   userRef
     .update({ [`journal.${today}`]: entry })
+    .then(() => console.log("Document successfully updated!"))
+    .catch(error => console.error("Error updating document: ", error));
+};
+
+export const getProfile = () => {
+  const userRef = db.collection("users").doc(firebase.auth().currentUser.uid);
+
+  return userRef
+    .get()
+    .then(user => {
+      if (user.exists) {
+        return user.data().profile;
+      } else {
+        console.log("No such document!");
+      }
+    })
+    .catch(error => console.error("Error retrieving profile: ", error));
+};
+
+export const updateProfile = entry => {
+  console.log(entry);
+  const userRef = db.collection("users").doc(firebase.auth().currentUser.uid);
+  userRef
+    .update({ ["profile"]: entry })
     .then(() => console.log("Document successfully updated!"))
     .catch(error => console.error("Error updating document: ", error));
 };
