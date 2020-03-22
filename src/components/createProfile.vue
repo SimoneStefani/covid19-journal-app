@@ -75,13 +75,6 @@ export default {
     WelcomeImg
   },
 
-  props: {
-    answers: {
-      defualt: () => [],
-      type: Array
-    }
-  },
-
   data() {
     return {
       today: new Date(),
@@ -112,15 +105,8 @@ export default {
   },
 
   methods: {
-    handleSubmit() {
-      this.$emit("next", this.selected);
-    },
-
     handleNumericAnswer(answer, answerable) {
       answerable.resolve(this.profile, answer);
-      console.log("Age");
-      console.log(this.profile.age);
-
       this.currentQuestion = this.profileQuestions.get(answerable.next);
     },
 
@@ -129,15 +115,8 @@ export default {
       this.currentQuestion = this.profileQuestions.get(answers[0].next);
 
       if (!this.currentQuestion.answers[0]) {
-        console.log("EMIT: submit");
-        console.log(this.profile);
         this.$emit("submit", this.profile);
       }
-    },
-
-    getFormattedDate() {
-      const today = new Date();
-      return today.toISOString().split("T")[0];
     }
   }
 };

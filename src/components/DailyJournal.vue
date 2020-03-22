@@ -64,21 +64,16 @@ export default {
     DoctorsImg
   },
 
-  props: {
-    answers: {
-      defualt: () => [],
-      type: Array
-    }
-  },
-
   data() {
     return {
       today: new Date(),
       selected: [],
       dailyQuestions: quest,
+      location: null,
       journalEntry: {
         date: this.getFormattedDate(),
-        // location: undefined,
+        longitude: null,
+        latitude: null,
         hasCough: false,
         hasFever: false,
         hasChills: false,
@@ -96,21 +91,24 @@ export default {
 
   created() {
     this.currentQuestion = this.dailyQuestions.get("how_are_you_doing");
+
+    navigator.geolocation.getCurrentPosition(
+      ({ coords }) => (this.location = coords),
+      err => console.log(err)
+    );
   },
 
   methods: {
-    handleSubmit() {
-      this.$emit("next", this.selected);
-    },
-
     handleAnswerSelected(answers) {
-      console.log(answers);
       answers.forEach(a => a.resolve(this.journalEntry));
       this.currentQuestion = this.dailyQuestions.get(answers[0].next);
 
       if (!this.currentQuestion.answers[0]) {
-        console.log("EMIT: submit");
-        console.log(this.journalEntry);
+        if (this.location) {
+          this.journalEntry["longitude"] = this.location.longitude;
+          this.journalEntry["latitude"] = this.location.latitude;
+        }
+
         this.$emit("submit", this.journalEntry);
       }
     },
@@ -118,20 +116,6 @@ export default {
     getFormattedDate() {
       const today = new Date();
       return today.toISOString().split("T")[0];
-    },
-
-    toggleAnswer(ans) {
-      var inArray = this.isSelected(ans);
-
-      if (inArray) {
-        this.selected = this.selected.filter(a => a.answer != ans.answer);
-      } else {
-        this.selected = [...this.selected, ans];
-      }
-    },
-
-    isSelected(ans) {
-      return this.selected.some(a => a.answer == ans.answer);
     }
   }
 };
