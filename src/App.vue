@@ -11,9 +11,10 @@ export default {
   name: "App",
 
   beforeCreate() {
+    const routeName = this.$route.name ? this.$route.name : "Home";
     firebase.auth().onAuthStateChanged(user => {
       user
-        ? this.$router.push({ name: "Home" })
+        ? this.$router.push({ name: routeName })
         : this.$router.push({ name: "Login" });
     });
   }

@@ -4,7 +4,9 @@
       <h2 class="text-xl font-bold text-gray-800">
         Covid-19 Tagebuch
       </h2>
-      <p @click="handleLogout" class="text-gray-600">Logout</p>
+      <p @click="() => $router.push({ name: 'Profile' })" class="text-gray-600">
+        Profile
+      </p>
     </div>
 
     <div
