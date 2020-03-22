@@ -91,6 +91,16 @@
           >
         </div>
       </div>
+      <div class="flex justify-center align-center my-5">
+        <facebook-button
+          url="https://covid19journalapp.web.app"
+          title="Du bist gefragt! Hilf im Kampf gegen das Coronavirus indem du Ärzten und Wissenschaftlern dabei hilfst das Virus besser zu verstehen. Fange jetzt ein Gesundheisttagebuch an und sorge selber dafür das du gesund bleibst. "
+        />
+        <twitter-button
+          url="https://covid19journalapp.web.app"
+          title="Deine Hilfe isgt gefragt! Hilf mit dieser App im Kampf gegen Corona."
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -98,12 +108,16 @@
 <script>
 import LoginImg from "@/components/LoginImg.vue";
 import firebase, { createUser } from "@/firebase.js";
+import TwitterButton from "vue-share-buttons/src/components/TwitterButton";
+import FacebookButton from "vue-share-buttons/src/components/FacebookButton";
 
 export default {
   name: "Login",
 
   components: {
-    LoginImg
+    LoginImg,
+    TwitterButton,
+    FacebookButton
   },
 
   data() {

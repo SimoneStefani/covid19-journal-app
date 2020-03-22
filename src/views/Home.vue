@@ -40,6 +40,16 @@
     >
       <daily-journal @submit="entry => handleSubmitDailyJournal(entry)" />
     </div>
+    <div class="flex justify-center align-center mt-5">
+      <facebook-button
+        url="https://covid19journalapp.web.app"
+        title="Du bist gefragt! Hilf im Kampf gegen das Coronavirus indem du Ärzten und Wissenschaftlern dabei hilfst das Virus besser zu verstehen. Fange jetzt ein Gesundheisttagebuch an und sorge selber dafür das du gesund bleibst. "
+      />
+      <twitter-button
+        url="https://covid19journalapp.web.app"
+        title="Deine Hilfe isgt gefragt! Hilf mit dieser App im Kampf gegen Corona."
+      />
+    </div>
   </div>
 </template>
 
@@ -53,6 +63,8 @@ import firebase, {
 import DoneImg from "@/components/DoneImg.vue";
 import createProfile from "@/components/createProfile.vue";
 import DailyJournal from "@/components/DailyJournal.vue";
+import TwitterButton from "vue-share-buttons/src/components/TwitterButton";
+import FacebookButton from "vue-share-buttons/src/components/FacebookButton";
 
 export default {
   name: "Home",
@@ -60,7 +72,9 @@ export default {
   components: {
     DoneImg,
     createProfile,
-    DailyJournal
+    DailyJournal,
+    TwitterButton,
+    FacebookButton
   },
 
   data() {
