@@ -10,7 +10,13 @@
       />
     </label>
     <button
-      class="bg-yellow-600 text-white font-bold py-2 px-4 rounded w-full"
+      class="font-bold py-2 px-4 rounded w-full"
+      :class="
+        !(answer && answer > 0)
+          ? 'bg-gray-200 text-gray-400 cursor-default'
+          : 'bg-yellow-600 text-white '
+      "
+      :disabled="!(answer && parseInt(answer) > 0)"
       @click="handleSubmit"
     >
       Weiter
@@ -22,13 +28,6 @@
 export default {
   name: "NumericAnswer",
 
-  props: {
-    question: {
-      default: "",
-      type: String
-    }
-  },
-
   data() {
     return {
       answer: null
@@ -37,7 +36,9 @@ export default {
 
   methods: {
     handleSubmit() {
-      this.$emit("next", parseInt(this.answer));
+      if (this.answer && this.answer > 0) {
+        this.$emit("next", parseInt(this.answer));
+      }
     }
   }
 };

@@ -11,7 +11,13 @@
     </button>
 
     <button
-      class="bg-gray-400 text-black font-bold py-2 px-4 mt-5 rounded w-full"
+      class="font-bold py-2 px-4 mt-5 rounded w-full"
+      :class="
+        selected.length == 0
+          ? 'bg-gray-200 text-gray-400 cursor-default'
+          : 'bg-yellow-600 text-white '
+      "
+      :disabled="selected.length == 0"
       @click="handleSubmit"
     >
       Weiter

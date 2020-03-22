@@ -4,7 +4,7 @@
       <doctors-img class="w-3/5 md:w-64 h-auto align-center" />
     </div>
     <h2 class="text-xl font-serif text-gray-800 mt-5 mb-3">
-      Tagebucheintrag für
+      Tagebucheintrag <br />
 
       <span>{{
         today.toLocaleDateString("de-DE", {
@@ -17,7 +17,7 @@
       >:
     </h2>
     <div>
-      <h3 class="font-bold text-gray-900">
+      <h3 class="font-bold text-gray-900 mb-4">
         {{ currentQuestion.question }}
       </h3>
       <div

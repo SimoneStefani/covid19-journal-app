@@ -13,7 +13,8 @@
 
     <div class="flex-1 flex flex-col container mx-auto px-4">
       <h2 class="text-xl font-serif text-gray-800 mt-5 mb-3">
-        Hi! Hier siehst du an welchen Tagen du ins Tagebuch geschrieben hast.
+        Hallo {{ profile ? profile.name : "" }}! <br /><br />
+        Hier siehst du an welchen Tagen du ins Tagebuch geschrieben hast.
       </h2>
       <div id="cal-heatmap" class="flex justify-center items-center m-2"></div>
     </div>
@@ -32,22 +33,23 @@
 </template>
 
 <script>
-import firebase, { getJournal } from "@/firebase.js";
+import firebase, { getJournal, getProfile } from "@/firebase.js";
 
 export default {
   name: "Profile",
 
   data() {
     return {
-      user: null,
-      heatmapData: {}
+      profile: null
     };
   },
 
   mounted() {
-    firebase.auth().onAuthStateChanged(user => {
-      this.user = user;
-
+    getProfile().then(userProfile => {
+      this.profile = userProfile;
+      console.log(userProfile);
+    });
+    firebase.auth().onAuthStateChanged(() => {
       getJournal().then(journal => {
         Object.keys(journal).forEach(k => (this.heatmapData[k] = 1));
 
@@ -57,7 +59,7 @@ export default {
           data: this.heatmapData,
           cellRadius: 20,
           domain: "month",
-          range: 3,
+          range: 2,
           subDomain: "x_day",
           cellSize: 25,
           cellPadding: 5,

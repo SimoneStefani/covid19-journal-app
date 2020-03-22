@@ -25,6 +25,7 @@
         <input
           class="form-input mt-1 block w-full"
           v-model="register.email"
+          type="email"
           placeholder="Email"
         />
       </label>
@@ -57,6 +58,7 @@
         <input
           class="form-input mt-1 block w-full"
           v-model="login.email"
+          type="email"
           placeholder="Email"
         />
       </label>
