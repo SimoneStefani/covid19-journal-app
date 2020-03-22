@@ -61,6 +61,21 @@ export const getProfile = () => {
     .catch(error => console.error("Error retrieving profile: ", error));
 };
 
+export const getJournal = () => {
+  const userRef = db.collection("users").doc(firebase.auth().currentUser.uid);
+
+  return userRef
+    .get()
+    .then(user => {
+      if (user.exists) {
+        return user.data().journal;
+      } else {
+        console.log("No such document!");
+      }
+    })
+    .catch(error => console.error("Error retrieving profile: ", error));
+};
+
 export const updateProfile = entry => {
   const userRef = db.collection("users").doc(firebase.auth().currentUser.uid);
   userRef

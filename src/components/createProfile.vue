@@ -67,7 +67,7 @@ import WelcomeImg from "@/components/WelcomeImg.vue";
 import questions from "@/profileQuestions.js";
 
 export default {
-  name: "createProfile",
+  name: "CreateProfile",
 
   components: {
     MultipleAnswers,

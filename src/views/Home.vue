@@ -51,7 +51,7 @@ import firebase, {
   getProfile
 } from "@/firebase.js";
 import DoneImg from "@/components/DoneImg.vue";
-import createProfile from "@/components/createProfile.vue";
+import CreateProfile from "@/components/CreateProfile.vue";
 import DailyJournal from "@/components/DailyJournal.vue";
 
 export default {
@@ -59,7 +59,7 @@ export default {
 
   components: {
     DoneImg,
-    createProfile,
+    CreateProfile,
     DailyJournal
   },
 

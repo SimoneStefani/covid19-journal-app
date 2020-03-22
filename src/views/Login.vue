@@ -33,6 +33,7 @@
             class="form-input mt-1 block w-full"
             v-model="register.password"
             placeholder="Passwort"
+            type="password"
             v-on:keyup.enter="handleRegister"
           />
         </label>

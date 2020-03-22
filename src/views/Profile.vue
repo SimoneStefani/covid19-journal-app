@@ -29,41 +29,42 @@
 </template>
 
 <script>
-import firebase from "@/firebase.js";
+import firebase, { getJournal } from "@/firebase.js";
 
 export default {
   name: "Profile",
 
   data() {
     return {
-      user: null
+      user: null,
+      heatmapData: {}
     };
   },
 
-  created() {
+  mounted() {
     firebase.auth().onAuthStateChanged(user => {
       this.user = user;
-    });
-  },
 
-  mounted() {
-    var cal = new CalHeatMap();
-    cal.init({
-      start: new Date(2020, 2),
-      data: {
-        "1584524184": 1,
-        "1584783384": 1
-      },
-      cellRadius: 20,
-      domain: "month",
-      range: 3,
-      subDomain: "x_day",
-      cellSize: 25,
-      cellPadding: 5,
-      verticalOrientation: true,
-      displayLegend: false,
-      highlight: ["now"],
-      domainGutter: 10
+      getJournal().then(journal => {
+        console.log(journal);
+        Object.keys(journal).forEach(k => (this.heatmapData[k] = 1));
+
+        var cal = new CalHeatMap();
+        cal.init({
+          start: new Date(2020, 2),
+          data: this.heatmapData,
+          cellRadius: 20,
+          domain: "month",
+          range: 3,
+          subDomain: "x_day",
+          cellSize: 25,
+          cellPadding: 5,
+          verticalOrientation: true,
+          displayLegend: false,
+          highlight: ["now"],
+          domainGutter: 10
+        });
+      });
     });
   },
 
