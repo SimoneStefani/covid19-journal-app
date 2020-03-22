@@ -61,6 +61,15 @@ export const getProfile = () => {
     .catch(error => console.error("Error retrieving profile: ", error));
 };
 
+export const updateProfile = entry => {
+  console.log(entry);
+  const userRef = db.collection("users").doc(firebase.auth().currentUser.uid);
+  userRef
+    .update({ ["profile"]: entry })
+    .then(() => console.log("Document successfully updated!"))
+    .catch(error => console.error("Error updating document: ", error));
+};
+
 export const hasSubmitted = () => {
   const userRef = db.collection("users").doc(firebase.auth().currentUser.uid);
 

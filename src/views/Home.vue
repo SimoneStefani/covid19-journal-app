@@ -29,12 +29,13 @@
       v-if="!completedProfile"
       class="flex-1 flex flex-col justify-center items-center container mx-auto px-4"
     >
-      <p class="mt-6 text-center text-gray-800">
-        Erzähle uns bitte kurz von dir.
-      </p>
+      <create-profile @submit="entry => handleSubmitProfile(entry)" />
     </div>
 
-    <div class="flex-1 flex flex-col container mx-auto px-4 mt-24">
+    <div
+      v-if="!alreadyReported"
+      class="flex-1 flex flex-col container mx-auto px-4 mt-24"
+    >
       <daily-journal @submit="entry => handleSubmitDailyJournal(entry)" />
     </div>
   </div>
@@ -44,9 +45,11 @@
 import firebase, {
   addJournalEntry,
   hasSubmitted,
+  updateProfile,
   getProfile
 } from "@/firebase.js";
 import DoneImg from "@/components/DoneImg.vue";
+import createProfile from "@/components/createProfile.vue";
 import DailyJournal from "@/components/DailyJournal.vue";
 
 export default {
@@ -54,6 +57,7 @@ export default {
 
   components: {
     DoneImg,
+    createProfile,
     DailyJournal
   },
 
@@ -82,6 +86,11 @@ export default {
     handleSubmitDailyJournal(entry) {
       console.log(entry);
       addJournalEntry(entry);
+    },
+
+    handleSubmitProfile(entry) {
+      console.log(entry);
+      updateProfile(entry);
     },
 
     handleLogout() {

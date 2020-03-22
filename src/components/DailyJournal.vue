@@ -104,6 +104,7 @@ export default {
     },
 
     handleAnswerSelected(answers) {
+      console.log(answers);
       answers.forEach(a => a.resolve(this.journalEntry));
       this.currentQuestion = this.dailyQuestions.get(answers[0].next);
 
