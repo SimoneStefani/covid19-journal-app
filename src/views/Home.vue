@@ -8,7 +8,7 @@
     </div>
 
     <div
-      v-if="alreadyReported"
+      v-if="completedProfile && alreadyReported"
       class="flex-1 flex flex-col justify-center items-center container mx-auto px-4"
     >
       <done-img class="w-3/5 h-auto" />
@@ -22,6 +22,15 @@
         <br /><br />
         Teile diese App mit deinen Freunden aus Facebook
         <br />
+      </p>
+    </div>
+
+    <div
+      v-if="!completedProfile"
+      class="flex-1 flex flex-col justify-center items-center container mx-auto px-4"
+    >
+      <p class="mt-6 text-center text-gray-800">
+        Erzähle uns bitte kurz von dir.
       </p>
     </div>
 
@@ -79,7 +88,11 @@
 </template>
 
 <script>
-import firebase, { addJournalEntry, hasSubmitted } from "@/firebase.js";
+import firebase, {
+  addJournalEntry,
+  hasSubmitted,
+  getProfile
+} from "@/firebase.js";
 import DoneImg from "@/components/DoneImg.vue";
 import DoctorsImg from "@/components/DoctorsImg.vue";
 import MultipleAnswers from "@/components/MultipleAnswers.vue";
@@ -96,6 +109,7 @@ export default {
 
   data() {
     return {
+      completedProfile: false,
       alreadyReported: false,
       user: null,
       today: new Date(),
@@ -121,6 +135,10 @@ export default {
   created() {
     firebase.auth().onAuthStateChanged(user => {
       this.user = user;
+      console.log("this.user.profile");
+      getProfile().then(userProfile => {
+        this.completedProfile = userProfile.completedProfile;
+      });
       if (user) hasSubmitted().then(res => (this.alreadyReported = res));
     });
 
