@@ -1,5 +1,7 @@
 <template>
-  <div class="min-h-screen flex flex-col">
+  <div
+    class="w-fill xl:w-1/4 lg:w-1/3 md:w-1/3 flex-fill justify-center container mx-auto px-4"
+  >
     <div class="px-3 py-2 flex justify-between items-baseline">
       <h2 class="text-xl font-bold text-gray-800">
         Covid-19 Tagebuch
@@ -11,10 +13,9 @@
 
     <div class="flex-1 flex flex-col container mx-auto px-4">
       <h2 class="text-xl font-serif text-gray-800 mt-5 mb-3">
-        Hi Max! Here you can keep track of which days you submitted your health
-        data.
+        Hi! Hier siehst du an welchen Tagen du ins Tagebuch geschrieben hast.
       </h2>
-      <div id="cal-heatmap" class="flex justify-center items-center"></div>
+      <div id="cal-heatmap" class="flex justify-center items-center m-2"></div>
     </div>
 
     <div class="flex-1 flex flex-col items-center container mx-auto px-4 my-6">
@@ -48,7 +49,6 @@ export default {
       this.user = user;
 
       getJournal().then(journal => {
-        console.log(journal);
         Object.keys(journal).forEach(k => (this.heatmapData[k] = 1));
 
         var cal = new CalHeatMap();

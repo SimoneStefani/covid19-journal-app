@@ -1,5 +1,7 @@
 <template>
-  <div class="min-h-screen flex flex-col">
+  <div
+    class="w-fill xl:w-1/4 lg:w-1/3 md:w-1/3 flex-fill justify-center container mx-auto px-4"
+  >
     <div class="px-3 py-2 flex justify-between items-baseline">
       <h2 class="text-xl font-bold text-gray-800">
         Covid-19 Tagebuch
@@ -14,7 +16,7 @@
       class="flex-1 flex flex-col justify-center items-center container mx-auto px-4"
     >
       <done-img class="w-3/5 md:w-64 h-auto" />
-      <p class="mt-6 text-center text-gray-800">
+      <p class="mt-6 text-gray-800">
         Du hast deinen heutigen Beitrag geleistet. Vielen Dank! <br /><br />
         Mit deiner Hilfe bekämpfen wir das Coronavirus. <br />
 
@@ -22,7 +24,7 @@
         Virus lernen und es somit schneller besiegen. Jeder Beitrag zählt.
 
         <br /><br />
-        Teile diese App mit deinen Freunden aus Facebook
+        Teile diese App mit deinen Freunden.
         <br />
       </p>
     </div>
@@ -35,7 +37,7 @@
     </div>
 
     <div
-      v-if="!alreadyReported"
+      v-if="!alreadyReported && completedProfile"
       class="flex-1 flex flex-col container mx-auto px-4 mt-24"
     >
       <daily-journal @submit="entry => handleSubmitDailyJournal(entry)" />
@@ -104,6 +106,7 @@ export default {
 
     handleSubmitProfile(entry) {
       updateProfile(entry);
+      this.completedProfile = true;
     },
 
     handleLogout() {
