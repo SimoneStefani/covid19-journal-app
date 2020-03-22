@@ -74,7 +74,6 @@ export default {
   created() {
     firebase.auth().onAuthStateChanged(user => {
       this.user = user;
-      console.log("this.user.profile");
       getProfile().then(userProfile => {
         this.completedProfile = userProfile.completedProfile;
       });
@@ -84,12 +83,10 @@ export default {
 
   methods: {
     handleSubmitDailyJournal(entry) {
-      console.log(entry);
       addJournalEntry(entry);
     },
 
     handleSubmitProfile(entry) {
-      console.log(entry);
       updateProfile(entry);
     },
 

@@ -62,7 +62,6 @@ export const getProfile = () => {
 };
 
 export const updateProfile = entry => {
-  console.log(entry);
   const userRef = db.collection("users").doc(firebase.auth().currentUser.uid);
   userRef
     .update({ ["profile"]: entry })
@@ -77,7 +76,6 @@ export const hasSubmitted = () => {
     .get()
     .then(user => {
       if (user.exists) {
-        console.log(user.data());
         var today = new Date();
         today = today.toISOString().split("T")[0];
         var journal = user.data().journal;
