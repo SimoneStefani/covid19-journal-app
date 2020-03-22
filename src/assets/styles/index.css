@@ -3,11 +3,11 @@
 @tailwind utilities;
 
 rect.now {
-  stroke: #ed8936;
+  stroke: #696969;
   stroke-width: 2px;
 }
 
 .q1 {
-  background-color: #ecc94b;
-  fill: #ecc94b;
+  background-color: #228b22;
+  fill: #228b22;
 }

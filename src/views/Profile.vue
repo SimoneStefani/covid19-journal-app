@@ -57,7 +57,7 @@ export default {
           data: this.heatmapData,
           cellRadius: 20,
           domain: "month",
-          range: 3,
+          range: 2,
           subDomain: "x_day",
           cellSize: 25,
           cellPadding: 5,

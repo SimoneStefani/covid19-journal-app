@@ -81,6 +81,7 @@ export default {
 
   data() {
     return {
+      profile: null,
       completedProfile: false,
       alreadyReported: false,
       user: null,
@@ -93,6 +94,7 @@ export default {
     firebase.auth().onAuthStateChanged(user => {
       this.user = user;
       getProfile().then(userProfile => {
+        this.profile = userProfile;
         this.completedProfile = userProfile.completedProfile;
       });
       if (user) hasSubmitted().then(res => (this.alreadyReported = res));
@@ -105,7 +107,10 @@ export default {
     },
 
     handleSubmitProfile(entry) {
-      updateProfile(entry);
+      updateProfile({
+        ...this.profile,
+        ...entry
+      });
       this.completedProfile = true;
     },
 
