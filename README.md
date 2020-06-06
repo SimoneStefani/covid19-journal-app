@@ -1,24 +1,8 @@
-# covid19-journal-app
+# Covid19 Journal App
 
-## Project setup
-```
-npm install
-```
+Submission to [WirvsVirus](https://www.deutschland.de/en/topic/knowledge/hackathon-on-corona-wirvsvirus-brings-solutions) hackathon supported by the Federal Government of Germany in March 2020.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+Team members: [Dean](https://github.com/Daynex) and Simone Stefani
 
-### Compiles and minifies for production
-```
-npm run build
-```
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+A simple Vue web application to serve as a health journal to track early simptoms of COVID-19 virus.
